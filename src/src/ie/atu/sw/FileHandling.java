@@ -10,7 +10,7 @@ import java.util.List;
 public class FileHandling {
 
     //method that reads in a String that is the name of a file and returns the contents of the file as a String
-    public static List<String> readFileAsWords(String fileName) throws IOException {
+    public List<String> readFileAsWords(String fileName) throws IOException {
         // Read file contents as a String
         String content = Files.readString(Path.of(fileName));
         // Split the content into words by spaces and convert to a List
@@ -20,7 +20,7 @@ public class FileHandling {
     public void printingFileWords(String filePath) {
         try {
             // Read file as a list of words
-            List<String> words = FileHandling.readFileAsWords(filePath);
+            List<String> words = readFileAsWords(filePath);
             System.out.println("Words in File:");
 
             // Print each word
@@ -46,6 +46,7 @@ public class FileHandling {
             }
         }
     }
+
 
 
 }

@@ -32,6 +32,7 @@ public class Runner {
 		System.out.println("Reading from file: " + text_file);
 
 		//calling Filehandling method that prints out each word in the file
+		List<String> userWords = fileHandling.readFileAsWords(filePath);
 		fileHandling.printingFileWords(filePath);
 
 		// Load embeddings from file and store in a variable
@@ -50,7 +51,8 @@ public class Runner {
 		//calling EmbeddingsLoader method that prints out the embeddings
 		//embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
 
-		//fileHandling.compareWordsToEmbeddings(fileHandling.readFileAsWords(filePath), embeddingsLoader.loadEmbeddings(embeddingsFilePath));
+		fileHandling.compareWordsToEmbeddings(userWords, embeddingsWords);
+
 
 	}
 
