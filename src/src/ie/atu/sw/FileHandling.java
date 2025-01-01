@@ -32,6 +32,20 @@ public class FileHandling {
         }
     }
 
+    //method that takes each word in the file and compares it to each word of the embeddings
+    public void compareWordsToEmbeddings(List<String> words, List<String> embeddings) {
+
+        // Compare each word in the file to each word in the embeddings
+        for (String word : words) {
+
+            // Check if the word is in the embeddings
+            if (embeddings.contains(word)) {
+                System.out.println("Word '" + word + "' found in embeddings");
+            } else {
+                System.out.println("Word '" + word + "' not found in embeddings");
+            }
+        }
+    }
 
 
 }

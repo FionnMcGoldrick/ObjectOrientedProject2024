@@ -1,10 +1,10 @@
 package ie.atu.sw;
 
 //imports
-import java.io.File;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
+import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Runner {
 
@@ -34,8 +34,23 @@ public class Runner {
 		//calling Filehandling method that prints out each word in the file
 		fileHandling.printingFileWords(filePath);
 
-		embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
+		// Load embeddings from file and store in a variable
+		String embeddingsFilePath = "src/src/ie/atu/sw/Resources/embeddings.txt";
+		Map<String, double[]> embeddings = embeddingsLoader.loadEmbeddings(embeddingsFilePath);
 
+		//getting the words from the embeddings file to compare to the words in the text file
+		List<String> embeddingsWords = new ArrayList<>(embeddings.keySet());
+
+		//printing out the words in the embeddings file
+		/*System.out.println("Words in Embeddings:");
+		for (String word : embeddingsWords) {
+			System.out.print(word + " ");
+		}*/
+
+		//calling EmbeddingsLoader method that prints out the embeddings
+		//embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
+
+		//fileHandling.compareWordsToEmbeddings(fileHandling.readFileAsWords(filePath), embeddingsLoader.loadEmbeddings(embeddingsFilePath));
 
 	}
 
