@@ -28,8 +28,6 @@ public class GoogleWords {
 
         }
 
-
-
         //prints out the google words (DEBUGGING)
         /*System.out.println("Google Words:");
         for (String word : googleWords) {

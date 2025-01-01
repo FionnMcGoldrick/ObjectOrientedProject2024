@@ -37,27 +37,29 @@ public class FileHandling {
     }
 
     public void writeGoogleWordsWithEmbeddings(String outputFilePath, List<String> googleWords, Map<String, double[]> embeddings) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
 
-            for (String word : googleWords) {
-                // Check if the word has embeddings
-                if (embeddings.containsKey(word)) {
-                    // Write the word and its embeddings
-                    writer.write(word + ", ");
-                    double[] vector = embeddings.get(word);
-                    for (int i = 0; i < vector.length; i++) {
-                        writer.write(String.valueOf(vector[i]));
-                        if (i < vector.length - 1) {
-                            writer.write(", ");
-                        }
+        // Create a StringBuilder to hold the file's new content
+        StringBuilder content = new StringBuilder();
+
+        // Check each word and add it to the content only if it has embeddings
+        for (String word : googleWords) {
+            if (embeddings.containsKey(word)) {
+                // Build the word and embeddings line
+                content.append(word).append(", ");
+                double[] vector = embeddings.get(word);
+                for (int i = 0; i < vector.length; i++) {
+                    content.append(vector[i]);
+                    if (i < vector.length - 1) {
+                        content.append(", ");
                     }
-                    writer.newLine();
-                } else {
-                    // Optional: Log missing embeddings
-                    writer.write(word + " - No Embedding Found");
-                    writer.newLine();
                 }
+                content.append(System.lineSeparator()); // Add a new line
             }
+        }
+
+        // Write the complete content to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
+            writer.write(content.toString());
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }

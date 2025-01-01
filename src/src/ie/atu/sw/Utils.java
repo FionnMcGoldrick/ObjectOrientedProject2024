@@ -54,4 +54,3 @@ public class Utils {
         if (index == total) System.out.println();
     }
 }
-
