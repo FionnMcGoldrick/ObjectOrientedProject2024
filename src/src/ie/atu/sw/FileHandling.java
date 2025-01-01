@@ -6,6 +6,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.Map;
+
 
 public class FileHandling {
 
@@ -32,21 +36,31 @@ public class FileHandling {
         }
     }
 
-    //method that takes each word in the file and compares it to each word of the embeddings
-    public void compareWordsToEmbeddings(List<String> words, List<String> embeddings) {
+    public void writeGoogleWordsWithEmbeddings(String outputFilePath, List<String> googleWords, Map<String, double[]> embeddings) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
 
-        // Compare each word in the file to each word in the embeddings
-        for (String word : words) {
-
-            // Check if the word is in the embeddings
-            if (embeddings.contains(word)) {
-                System.out.println("Word '" + word + "' found in embeddings");
-            } else {
-                System.out.println("Word '" + word + "' not found in embeddings");
+            for (String word : googleWords) {
+                // Check if the word has embeddings
+                if (embeddings.containsKey(word)) {
+                    // Write the word and its embeddings
+                    writer.write(word + ", ");
+                    double[] vector = embeddings.get(word);
+                    for (int i = 0; i < vector.length; i++) {
+                        writer.write(String.valueOf(vector[i]));
+                        if (i < vector.length - 1) {
+                            writer.write(", ");
+                        }
+                    }
+                    writer.newLine();
+                } else {
+                    // Optional: Log missing embeddings
+                    writer.write(word + " - No Embedding Found");
+                    writer.newLine();
+                }
             }
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
-
-
-}
+}//class end

@@ -52,9 +52,20 @@ public class Runner {
 		//calling EmbeddingsLoader method that prints out the embeddings
 		//embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
 
-		fileHandling.compareWordsToEmbeddings(userWords, embeddingsWords);
+		//calling FileHandling method that compares the words in the file to the words in the embeddings
+		//fileHandling.compareWordsToEmbeddings(userWords, embeddingsWords);
 
-		googleWords.loadGoogleWords("src/src/ie/atu/sw/Resources/google-1000.txt");
+		// Load google words from file and store in a variable
+		List <String> googleWordsList = googleWords.loadGoogleWords("src/src/ie/atu/sw/Resources/google-1000.txt");
+
+		//calling FileHandling method that will add embeddings to the google words
+		fileHandling.writeGoogleWordsWithEmbeddings("src/src/ie/atu/sw/Resources/google-1000.txt", googleWordsList, embeddings);
+
+
+
+
+		// Close the scanner
+		input.close();
 
 
 	}

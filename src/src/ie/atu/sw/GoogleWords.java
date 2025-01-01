@@ -25,15 +25,22 @@ public class GoogleWords {
                 // Add the word to the list
                 googleWords.add(line);
             }
+
         }
 
-        //prints out the google words
-        System.out.println("Google Words:");
+
+
+        //prints out the google words (DEBUGGING)
+        /*System.out.println("Google Words:");
         for (String word : googleWords) {
             System.out.print(word + " ");
-         }
+         }*/
 
         // Return the list of google words
         return googleWords;
     }
+
+
+
+
 }
