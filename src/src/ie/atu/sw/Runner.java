@@ -14,6 +14,7 @@ public class Runner {
 		Scanner input = new Scanner(System.in);
 		FileHandling fileHandling = new FileHandling();
 		EmbeddingsLoader embeddingsLoader = new EmbeddingsLoader();
+		GoogleWords googleWords = new GoogleWords();
 
 		// Display the menu
 		Utils.displayMenu();
@@ -52,6 +53,8 @@ public class Runner {
 		//embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
 
 		fileHandling.compareWordsToEmbeddings(userWords, embeddingsWords);
+
+		googleWords.loadGoogleWords("src/src/ie/atu/sw/Resources/google-1000.txt");
 
 
 	}
