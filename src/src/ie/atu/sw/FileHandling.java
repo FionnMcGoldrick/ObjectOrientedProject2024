@@ -17,4 +17,19 @@ public class FileHandling {
         return new ArrayList<>(Arrays.asList(content.split("\\s+")));
     }
 
+    public void printingFileWords(String filePath) {
+        try {
+            // Read file as a list of words
+            List<String> words = FileHandling.readFileAsWords(filePath);
+            System.out.println("Words in File:");
+
+            // Print each word
+            for (String word : words) {
+                System.out.print(word + " ");
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+
 }

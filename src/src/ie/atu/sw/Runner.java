@@ -1,6 +1,7 @@
 package ie.atu.sw;
 
 //imports
+import java.io.File;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.List;
@@ -11,7 +12,7 @@ public class Runner {
 
 		//Making Scanner for user input
 		Scanner input = new Scanner(System.in);
-
+		FileHandling fileHandling = new FileHandling();
 
 		// Display the menu
 		Utils.displayMenu();
@@ -25,23 +26,19 @@ public class Runner {
 		System.out.print("\n\nEnter the name of the text file you want us to change: ");
 		String text_file = input.nextLine();
 
+		//Move text_file to correct directory
+		String filePath = "src/src/ie/atu/sw/Resources/" + text_file;
 		System.out.println("Reading from file: " + text_file);
 
-		try {
-			// Read file as a list of words
-			List<String> words = FileHandling.readFileAsWords(text_file);
-			System.out.println("Words in File:");
-
-			// Print each word
-			for (String word : words) {
-				System.out.println(word + " ");
-			}
-		} catch (Exception e) {
-			System.err.println("Error reading file: " + e.getMessage());
-		}
+		//calling Filehandling method that prints out each word in the file
+		fileHandling.printingFileWords(filePath);
 
 
 	}
+
+	//Methods
+
+
 
 
 }
