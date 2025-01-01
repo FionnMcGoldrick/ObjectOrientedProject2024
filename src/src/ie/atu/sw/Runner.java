@@ -13,6 +13,7 @@ public class Runner {
 		//Making Scanner for user input
 		Scanner input = new Scanner(System.in);
 		FileHandling fileHandling = new FileHandling();
+		EmbeddingsLoader embeddingsLoader = new EmbeddingsLoader();
 
 		// Display the menu
 		Utils.displayMenu();
@@ -32,6 +33,8 @@ public class Runner {
 
 		//calling Filehandling method that prints out each word in the file
 		fileHandling.printingFileWords(filePath);
+
+		embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
 
 
 	}
