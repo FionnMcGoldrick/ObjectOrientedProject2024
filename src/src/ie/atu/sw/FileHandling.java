@@ -10,7 +10,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Map;
 
-
 public class FileHandling {
 
     //method that reads in a String that is the name of a file and returns the contents of the file as a String
@@ -35,6 +34,7 @@ public class FileHandling {
             System.err.println("Error reading file: " + e.getMessage());
         }
     }
+
 
     public void writeGoogleWordsWithEmbeddings(String outputFilePath, List<String> googleWords, Map<String, double[]> embeddings) {
 
@@ -64,5 +64,6 @@ public class FileHandling {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
+
 
 }//class end

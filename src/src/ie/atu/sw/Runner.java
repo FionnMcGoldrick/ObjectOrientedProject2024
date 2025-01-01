@@ -1,78 +1,101 @@
 package ie.atu.sw;
 
-//imports
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
 
 public class Runner {
 
 	public static void main(String[] args) throws Exception {
 
-		//Making Scanner for user input
+		// Making Scanner for user input
 		Scanner input = new Scanner(System.in);
 		FileHandling fileHandling = new FileHandling();
 		EmbeddingsLoader embeddingsLoader = new EmbeddingsLoader();
 		GoogleWords googleWords = new GoogleWords();
 
-		// Display the menu
-		Utils.displayMenu();
+		// Variables
+		String text_file = "";
+		String googleFile = "";
+		String output_file = "";
 
-		// Display the progress bar
-		int progressSize = 100;  // Total progress size
-		int delay = 10;          // Delay in milliseconds for animation
-		Utils.displayProgressBar(progressSize, delay);
+		// Constant variable for the directory
+		final String DIRECTORY = "src/src/ie/atu/sw/Resources/";
 
-		//taking in a String input from the user
-		System.out.print("\n\nEnter the name of the text file you want us to change: ");
-		String text_file = input.nextLine();
+		while (true) {
+			// Display the menu
+			Utils.displayMenu();
 
-		//Move text_file to correct directory
-		String filePath = "src/src/ie/atu/sw/Resources/" + text_file;
-		System.out.println("Reading from file: " + text_file);
+			// Display the progress bar
+			int progressSize = 100; // Total progress size
+			int delay = 10; // Delay in milliseconds for animation
+			Utils.displayProgressBar(progressSize, delay);
 
-		//calling Filehandling method that prints out each word in the file
-		List<String> userWords = fileHandling.readFileAsWords(filePath);
-		fileHandling.printingFileWords(filePath);
+			// Menu choice input in switch statement
+			System.out.print("\n\nEnter the number of the option you want to choose: ");
+			int choice = input.nextInt();
+			input.nextLine(); // Consume the newline character
 
-		// Load embeddings from file and store in a variable
-		String embeddingsFilePath = "src/src/ie/atu/sw/Resources/embeddings.txt";
-		Map<String, double[]> embeddings = embeddingsLoader.loadEmbeddings(embeddingsFilePath);
+			// Switch statement for menu choice
+			switch (choice) {
+				case 1:
+					// Taking in a String input from the user
+					System.out.print("\n\nEnter the name of the text file you want us to change: ");
+					text_file = input.nextLine();
+					System.out.println("File selected: " + text_file);
+					break;
 
-		//getting the words from the embeddings file to compare to the words in the text file
-		List<String> embeddingsWords = new ArrayList<>(embeddings.keySet());
+				case 2:
+					System.out.print("Enter the name of the Google 1000 file: ");
+					googleFile = input.nextLine();
+					System.out.println("File selected: " + googleFile);
+					break;
 
-		//printing out the words in the embeddings file
-		/*System.out.println("Words in Embeddings:");
-		for (String word : embeddingsWords) {
-			System.out.print(word + " ");
-		}*/
+				case 3:
+					System.out.print("Enter the name of the output file (default: ./out.txt): ");
+					output_file = input.nextLine();
+					System.out.println("Output file selected: " + output_file);
+					break;
 
-		//calling EmbeddingsLoader method that prints out the embeddings
-		//embeddingsLoader.printEmbeddings(embeddingsLoader.loadEmbeddings("src/src/ie/atu/sw/Resources/embeddings.txt"));
+				case 4:
+					System.out.println("You chose option 4: Compare the words in the text file to the words in the embeddings file");
+					break;
 
-		//calling FileHandling method that compares the words in the file to the words in the embeddings
-		//fileHandling.compareWordsToEmbeddings(userWords, embeddingsWords);
+				case 5:
+					System.out.println("You chose option 5: Add embeddings to the Google words and write them to a new file");
+					// Exit the loop and program when the user selects option 5
+					System.out.println("Exiting the program. Goodbye!");
+					input.close();
+					return;
 
-		// Load google words from file and store in a variable
-		List <String> googleWordsList = googleWords.loadGoogleWords("src/src/ie/atu/sw/Resources/google-1000.txt");
+				default:
+					System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+					break;
+			}
 
-		//calling FileHandling method that will add embeddings to the google words
-		fileHandling.writeGoogleWordsWithEmbeddings("src/src/ie/atu/sw/Resources/google-1000.txt", googleWordsList, embeddings);
+			// Perform actions outside the switch based on the current file and embeddings setup
+			if (!text_file.isEmpty() && !googleFile.isEmpty() && !output_file.isEmpty()) {
+				// Correct path handling
+				String filePath = Paths.get(DIRECTORY, text_file).toString();
+				String googleFilePath = Paths.get(DIRECTORY, googleFile).toString();
+				String outputFilePath = Paths.get(DIRECTORY, output_file).toString();
+				String embeddingsFilePath = Paths.get(DIRECTORY, "embeddings.txt").toString();
 
+				System.out.println("Reading from file: " + filePath);
 
+				// Calling FileHandling method that prints out each word in the file
+				fileHandling.printingFileWords(filePath);
 
+				// Load embeddings from file and store in a variable
+				Map<String, double[]> embeddings = embeddingsLoader.loadEmbeddings(embeddingsFilePath);
 
-		// Close the scanner
-		input.close();
+				// Load google words from file and store in a variable
+				List<String> googleWordsList = googleWords.loadGoogleWords(googleFilePath);
 
-
+				// Calling FileHandling method that will add embeddings to the google words
+				fileHandling.writeGoogleWordsWithEmbeddings(outputFilePath, googleWordsList, embeddings);
+			}
+		}
 	}
-
-	//Methods
-
-
-
-
 }
