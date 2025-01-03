@@ -76,7 +76,8 @@ public class Runner {
 
 			// Perform actions outside the switch based on the current file and embeddings setup
 			if (!text_file.isEmpty() && !googleFile.isEmpty() && !output_file.isEmpty()) {
-				// Correct path handling
+
+				//path to the files
 				String filePath = Paths.get(DIRECTORY, text_file).toString();
 				String googleFilePath = Paths.get(DIRECTORY, googleFile).toString();
 				String outputFilePath = Paths.get(DIRECTORY, output_file).toString();
